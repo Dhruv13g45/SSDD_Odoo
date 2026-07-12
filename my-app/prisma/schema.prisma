@@ -3,6 +3,7 @@ generator client {
 }
 datasource db {
   provider = "postgresql"
+  url      = env("DATABASE_URL")
 }
 
 model User {
@@ -49,7 +50,6 @@ model Vehicle {
   status             String   // Available, On Trip, In Shop, Retired
   createdAt          DateTime @default(now())
   
-  trips              Trip[]
   maintenanceRecords Maintenance[]
   expenses           Expense[]
 }
@@ -64,9 +64,9 @@ model Driver {
   status             String   // Available, On Trip, Off Duty, Suspended
   tripCompletionRate Float    // percentage
   createdAt          DateTime @default(now())
-
-  trips              Trip[]
 }
+
+
 
 model Maintenance {
   id          String   @id @default(cuid())
