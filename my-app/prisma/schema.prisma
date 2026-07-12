@@ -3,6 +3,7 @@ generator client {
 }
 datasource db {
   provider = "postgresql"
+  url      = env("DATABASE_URL")
 }
 
 enum TripStatus {
@@ -47,7 +48,6 @@ model Vehicle {
   status             String   // Available, On Trip, In Shop, Retired
   createdAt          DateTime @default(now())
   
-  trips              Trip[]
   maintenanceRecords Maintenance[]
   expenses           Expense[]
 }
@@ -62,28 +62,9 @@ model Driver {
   status             String   // Available, On Trip, Off Duty, Suspended
   tripCompletionRate Float    // percentage
   createdAt          DateTime @default(now())
-
-  trips              Trip[]
 }
 
-model Trip {
-  id             String   @id @default(cuid())
-  tripNumber     String   @unique // TR001, TR002
-  source         String
-  destination    String
-  cargoWeight    Float    // in kg
-  plannedDistance Float    // in km
-  status         String   // Draft, Dispatched, Completed, Cancelled
-  eta            String?  // e.g. "45 min", "Awaiting driver"
-  
-  vehicleId      String?
-  vehicle        Vehicle? @relation(fields: [vehicleId], references: [id])
-  
-  driverId       String?
-  driver         Driver?  @relation(fields: [driverId], references: [id])
 
-  createdAt      DateTime @default(now())
-}
 
 model Maintenance {
   id          String   @id @default(cuid())
