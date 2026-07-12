@@ -3,6 +3,8 @@ import { db } from "@/lib/db";
 import { trips } from "@/db/schema";
 import { eq } from "drizzle-orm";
 
+export const dynamic = 'force-dynamic';
+
 export async function GET(request, { params }) {
   const { id } = await params;
   const tripResult = await db.select().from(trips).where(eq(trips.id, id));

@@ -3,6 +3,8 @@ import { db } from "@/lib/db";
 import { trips } from "@/db/schema";
 import { desc } from "drizzle-orm";
 
+export const dynamic = 'force-dynamic';
+
 export async function GET() {
   try {
     const allTrips = await db.query.trips.findMany({
