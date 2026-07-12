@@ -2,8 +2,8 @@ import AuthProvider from "@/components/auth/AuthProvider";
 import "./globals.css";
 
 export const metadata = {
-  title: "FleetOps",
-  description: "Fleet management dashboard",
+  title: "TransitOps",
+  description: "Transit operations management dashboard",
 };
 
 export default function RootLayout({ children }) {
