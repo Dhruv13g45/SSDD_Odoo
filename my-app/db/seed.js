@@ -1,3 +1,4 @@
+import 'dotenv/config';
 import { db } from '../lib/db.js';
 import { users, drivers, vehicles, trips } from './schema.js';
 import bcrypt from 'bcryptjs';
