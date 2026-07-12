@@ -1,9 +1,16 @@
 generator client {
   provider = "prisma-client-js"
 }
-
 datasource db {
   provider = "postgresql"
+}
+
+enum TripStatus {
+  DRAFT
+  DISPATCHED
+  IN_TRANSIT
+  COMPLETED
+  CANCELLED
 }
 
 model User {
@@ -13,6 +20,20 @@ model User {
   password  String
   role      String   // Fleet Manager, Dispatcher, Safety Officer, Financial Analyst
   createdAt DateTime @default(now())
+}
+
+
+model Trip {
+  id          String     @id @default(cuid())
+  route       String
+  vehicle     String?
+  driver      String?
+  cargoWeight Int        @default(0)
+  distanceKm  Int        @default(0)
+  status      TripStatus @default(DRAFT)
+  time        String?    @default("")
+  createdAt   DateTime   @default(now())
+  updatedAt   DateTime   @updatedAt
 }
 
 model Vehicle {
@@ -89,3 +110,4 @@ model Expense {
 
   createdAt   DateTime @default(now())
 }
+
